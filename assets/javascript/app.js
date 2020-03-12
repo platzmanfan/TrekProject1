@@ -28,11 +28,34 @@
 var destinationCity;
 var originCity;
 var tripDate;
+var daysText = [];
+
+//Functions
+
+//03-12-2020 frontend
+
+//Get todays date and create array with strings for 7 days out
+function getDays() {
+  var startingDay = moment().format("dddd , MMMM Do");
+  daysText.push(startingDay);
+
+  for (var i = 1; i < 7; i++) {
+    var nextday = moment().add(i, "days");
+    nextday = nextday.format("dddd, MMMM Do");
+    daysText.push(nextday);
+  }
+
+  console.log(daysText);
+}
+
+//Create Weather and Append to page
+function createWeatherCard() {}
+
+//03-12-2020 frontend-end
 
 //Submit button on click event handler
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
-
 
 $("#btn-submit").on("click", function() {
   event.preventDefault();
@@ -117,16 +140,21 @@ $("#btn-submit").on("click", function() {
 
         //Generates horizontal table
         //TODO: Integrate date and time into day
-        var forecastHTML=
-          '<tr><td>'+ ["Day " + i] + '</td><td>'
-          + forecastDays[i].temperatureHigh + '</td><td>'
-          + forecastDays[i].temperatureLow + '</td><td>'
-          + forecastDays[i].summary + '</td><td>'
-          +  forecastDays[i].icon + '</td></tr>';
-        $('.weather').append(forecastHTML);
+        var forecastHTML =
+          "<tr><td>" +
+          ["Day " + i] +
+          "</td><td>" +
+          forecastDays[i].temperatureHigh +
+          "</td><td>" +
+          forecastDays[i].temperatureLow +
+          "</td><td>" +
+          forecastDays[i].summary +
+          "</td><td>" +
+          forecastDays[i].icon +
+          "</td></tr>";
+        $(".weather").append(forecastHTML);
       }
-      
     });
-   $(".weather").empty();
+    $(".weather").empty();
   });
 });
