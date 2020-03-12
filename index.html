@@ -157,7 +157,56 @@
     <div class="container" id="wrapper">
       <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
       <!-- To Do: Results Section -->
-        <br>
+        <div class="row">
+          <div class="col-md">
+            <div class="card" style="width: 25rem;">
+              <div class="card-body">
+                <h5 class="card-title" id="destination-input">City</h5>
+                <p class="card-text" id="todays-date">Today's Date</p>
+                <p class="card-text" id="day0-weatherOverview">Weather Overview</p>
+                <h2 id="day0-tmp">90</h2>
+
+                
+                <!-- collapse here -->
+
+                <p>
+                  
+                  
+                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand Weather</button>
+                </p>
+                <div class="row">
+                  <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                      <div class="card card-body" id="dailyTempDisplay">
+                        <div class="row">
+                          <div class="col-6">
+                            Friday ,March 13th
+                          </div>
+                          <div class="col">
+                            Icon
+                          </div>
+                          <div class="col">
+                            24C 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                </div>
+
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
   
       <table id="weather-display" class="table weather">
         <thead>
@@ -179,11 +228,15 @@
     </div>
     
 
+  </div>
+
 
   
 
 
-    <div>
+
+
+
 
     <footer>
       <!-- Copyright Info, contact links, social media...  -->
