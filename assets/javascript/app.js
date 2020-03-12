@@ -30,9 +30,11 @@ var originCity;
 var tripDate;
 var daysText = [];
 
-//Functions
 
-//03-12-2020 frontend
+
+
+
+//Functions
 
 //Get todays date and create array with strings for 7 days out
 function getDays() {
@@ -60,6 +62,7 @@ function createWeatherCard() {}
 $("#btn-submit").on("click", function() {
   event.preventDefault();
   //TODO: add better input validation
+
   var destinationCity;
   var originCity;
   if ($("#destination-input").val() != undefined) {
@@ -83,6 +86,8 @@ $("#btn-submit").on("click", function() {
 
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
+
+  
   var directionsURL =
     "http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
     originCity +
@@ -155,6 +160,12 @@ $("#btn-submit").on("click", function() {
         $(".weather").append(forecastHTML);
       }
     });
+
+    var weatherObj={
+      name:destinationCity,
+      temperature:forecastDays
+  }
+  
     $(".weather").empty();
   });
 });
