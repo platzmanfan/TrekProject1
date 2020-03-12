@@ -52,10 +52,10 @@
       rel="stylesheet"
     />
     <!-- Material Design Bootstrap -->
-    <!-- <link
+    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.0/css/mdb.min.css"
       rel="stylesheet"
-    /> -->
+    />
 
     <!-- Travel Companion App Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
@@ -63,37 +63,103 @@
   </head>
 
   <body>
-    <header>
-      <!-- To Do: Nav bar with Logo, title, links and sign in / register button -->
-      <!-- To Do: full screen image background  -->
-      <!-- To Do: Headline app tag line -->
-      <!-- To Do: search input field for destination-->
-      <!-- To Do: button to submit search -->
-      <form>
-        <div class="form-row justify-content-center">
-          <div class="col-3">
-            <input
-              id="destination-input"
-              type="text"
-              class="form-control"
-              placeholder="Destination..."
-            />
-          </div>
-          <div class="col-2">
-            <button id="btn-submit" type="submit" class="btn btn-primary mb-2">
-              Travel
-            </button>
+
+    <!-- Navbar -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand text-white" target="_blank">
+      <strong>Travel App Companion</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+        <li class="nav-item">
+          <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="" class="nav-link border border-light rounded"
+            target="_blank">
+            Log In
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+
+
+ <!-- Full Page Intro -->
+ <div class="view" style="background-image: url('assets/images/img1.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+  <!-- Mask-->
+  <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+    <!-- Content -->
+    <div class="row text-center white-text mx-5 ">
+      <div class="col">
+        <h1 class="mb-4">
+          <strong>Your Destination Awaits</strong>
+        </h1>
+        <div class="input-group mb-3">
+          <input id="destination-input" type="text" class="form-control" placeholder="Where would you like to go?" aria-label=""
+            aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 " type="button" > Travel</button>
           </div>
         </div>
-      </form>
-    </header>
+        
+      </div>
+      
+    </div>
+    <!-- Content -->
+
+  </div>
+  <!-- Mask -->
+
+</div>
+<!-- Full Page Intro -->
+
+
+
+<!-- Main Content -->
 
     <div class="container" id="wrapper">
       <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
       <!-- To Do: Results Section -->
         <br>
   
-      <table class="table weather">
+      <table id="weather-display" class="table weather">
         <thead>
             <tr>
                 <th id ="">Date</th>
