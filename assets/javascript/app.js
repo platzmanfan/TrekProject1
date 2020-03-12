@@ -125,6 +125,8 @@ $("#btn-submit").on("click", function() {
           +  forecastDays[i].icon + '</td></tr>';
         $('.weather').append(forecastHTML);
       }
+      
     });
+   $(".weather").empty();
   });
 });
