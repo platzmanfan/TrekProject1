@@ -46,6 +46,37 @@ function getDays() {
   console.log(daysText);
 }
 
+//Get icon string from forecast data and returns associated icon class
+function iconClass(icondata) {
+  var temp = icondata;
+  var _iconClass;
+
+  //If Weather is Clear, Wind or Fog return Sun Icon
+  if (icondata === ("clear-day" || "clear-night" || "wind" || "fog")) {
+    _iconClass = "fas fa-sun fa-lg amber-text";
+  }
+  //IF Weather is Rain, Return Rain Icon
+  else if (icondata === "rain") {
+    _iconClass = "fas fa-cloud-rain fa-lg text-info";
+  }
+  //IF Weather is Snow or Sleet, Return Snow Icon
+  else if (icondata === ("snow" || "sleet")) {
+    _iconClass = "fas fa-snowflake fa-lg text-info";
+  }
+  //IF Weather is cloudy, Return cloudy Icon
+  else if (icondata === "cloudy") {
+    _iconClass = "fas fa-cloud fa-lg text-info";
+  }
+  //IF Weather is partly-cloudy, Return Partly Cloudy Icon
+  else if (icondata === ("partly-cloudy-day" || "partly-cloudy-night")) {
+    _iconClass = "fas fa-cloud-sun fa-lg text-info";
+  } else {
+    _iconClass = "";
+  }
+  return _iconClass;
+  //
+}
+
 //Create Weather Card and Append to page
 function createWeatherCard(destination, forecastResults) {
   //Get days
@@ -56,25 +87,31 @@ function createWeatherCard(destination, forecastResults) {
   $("#todays-date").text(daysText[0]);
   $("#day0-weatherOverview").text(forecastResults[0].summary);
   $("#day0-tmp").text(
-    forecastResults[0].temperatureHigh +
+    Math.floor(forecastResults[0].temperatureHigh) +
       " / " +
-      forecastResults[0].temperatureLow
+      Math.floor(forecastResults[0].temperatureLow)
   );
 
-  //Create card for each day in forcast results
+  //Create Table
+
+  var newTable = $("<table>").addClass("table table-borderless table-sm mb-0");
+  var newBody = $("");
+
+  //Create row for each day in forcast results
 
   for (var i = 1; i < forecastResults.length - 1; i++) {
     var date = daysText[i];
-    var tempHigh = forecastResults[i].temperatureHigh;
-    var tempLow = forecastResults[i].temperatureLow;
-    var overview = forecastResults[i].summary;
+    var tempHigh = Math.floor(forecastResults[i].temperatureHigh);
+    var tempLow = Math.floor(forecastResults[i].temperatureLow);
+    var icon = forecastResults[i].icon;
 
     var newRow = $("<div>").addClass("row");
 
     var dateCol = $("<div>")
       .addClass("col-6")
       .text(date);
-    var iconCol = $("<div>").addClass("col");
+    var iconCol = $("<i>").addClass(iconClass(icon));
+
     var tempCol = $("<div>")
       .addClass("col")
       .text(tempHigh);
@@ -136,9 +173,8 @@ $("#btn-submit").on("click", function() {
     url: weatherQueryURL,
     method: "GET"
   }).then(function(response) {
-    console.log(results);
     var results = response;
-    console.log(results);
+
     var longitude = results.coord.lon;
     var latitude = results.coord.lat;
     console.log(latitude + " " + longitude);
