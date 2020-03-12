@@ -94,7 +94,6 @@ function createWeatherCard(destination, forecastResults) {
 
   //Create Table
 
-  var newTable = $("<table>").addClass("table table-borderless table-sm mb-0");
   var newBody = $("");
 
   //Create row for each day in forcast results
@@ -105,19 +104,24 @@ function createWeatherCard(destination, forecastResults) {
     var tempLow = Math.floor(forecastResults[i].temperatureLow);
     var icon = forecastResults[i].icon;
 
-    var newRow = $("<div>").addClass("row");
+    var tableRow = $("<tr>");
 
-    var dateCol = $("<div>")
-      .addClass("col-6")
+    var dateCol = $("<td>")
+      .addClass("font-weight-normal align-middle")
       .text(date);
-    var iconCol = $("<i>").addClass(iconClass(icon));
 
-    var tempCol = $("<div>")
-      .addClass("col")
+    var tempCol = $("<td>").addClass("float-right font-weight-normal");
+    var tempContent = $("<p>")
+      .addClass("mb-1")
       .text(tempHigh);
+    tempCol.append(tempContent);
 
-    newRow.append(dateCol, iconCol, tempCol);
-    $("#dailyTempDisplay").append(newRow);
+    var iconCol = $("<td>").addClass("float-right mr-3");
+    var iconContent = $("<i>").addClass(iconClass(icon));
+    iconCol.append(iconContent);
+
+    tableRow.append(dateCol, tempCol, iconCol);
+    $("#dailyTempDisplay").append(tableRow);
   }
 }
 
@@ -194,36 +198,29 @@ $("#btn-submit").on("click", function() {
       var forecastDays = results.daily.data;
       console.log(forecastDays);
       //note: want temperatureHigh, temperatureLow, summary, icon
-      // for (var i = 0; i < forecastDays.length; i++) {
-      //   //test string
-      //   var dailyForecast =
-      //     "High: " +
-      //     forecastDays[i].temperatureHigh +
-      //     " Low: " +
-      //     forecastDays[i].temperatureLow +
-      //     " Summary: " +
-      //     forecastDays[i].summary +
-      //     " Icon: " +
-      //     forecastDays[i].icon;
-      //   console.log(dailyForecast);
+      for (var i = 0; i < forecastDays.length; i++) {
+        //test string
+        var dailyForecast =
+          "High: " +
+          forecastDays[i].temperatureHigh +
+          " Low: " +
+          forecastDays[i].temperatureLow +
+          " Summary: " +
+          forecastDays[i].summary +
+          " Icon: " +
+          forecastDays[i].icon;
+        console.log(dailyForecast);
+      }
 
-      //   //Generates horizontal table
-      //   //TODO: Integrate date and time into day
-      //   var forecastHTML =
-      //     "<tr><td>" +
-      //     ["Day " + i] +
-      //     "</td><td>" +
-      //     forecastDays[i].temperatureHigh +
-      //     "</td><td>" +
-      //     forecastDays[i].temperatureLow +
-      //     "</td><td>" +
-      //     forecastDays[i].summary +
-      //     "</td><td>" +
-      //     forecastDays[i].icon +
-      //     "</td></tr>";
-      //   $(".weather").append(forecastHTML);
-      // }
+      //Update Weather Card
       createWeatherCard(destinationCity, forecastDays);
+
+      //Slide page down to results AFTER ALL CARDS ARE UPDATED
+
+      $("html,body").animate(
+        { scrollTop: $(".main-content").offset().top },
+        "slow"
+      );
     });
 
     $(".weather").empty();

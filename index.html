@@ -154,14 +154,14 @@
 
 <!-- Main Content -->
 
-    <div class="container" id="wrapper">
+    <div class="container main-content" id="wrapper">
       <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
       <!-- To Do: Results Section -->
-        <div class="row">
+        <div class="row my-3 py-2">
           <div class="col-md">
             <div class="card" style="width: 25rem;">
               <div class="card-body">
-                <h5 class="card-title" id="destination-input">City</h5>
+                <h5 class="card-title" id="destination-city">Destination City</h5>
                 <p class="card-text" id="todays-date">Today's Date</p>
                 <p class="card-text" id="day0-weatherOverview">Weather Overview</p>
                 <h2 id="day0-tmp">90</h2>
@@ -174,22 +174,18 @@
 
                   
                   
-                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand Weather</button>
+                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand 7 Day Forecast</button>
                 </p>
                 <div class="row">
                   <div class="col">
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
-                      <div class="card card-body" id="dailyTempDisplay">
+                      <div class="card card-body" >
                         <div class="row">
-                          <div class="col-6">
-                            Friday ,March 13th
-                          </div>
-                          <div class="col">
-                            Icon
-                          </div>
-                          <div class="col">
-                            24C 
-                          </div>
+                          <table class="table table-borderless table-sm mb-0">
+                            <tbody id="dailyTempDisplay">
+
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
@@ -211,13 +207,13 @@
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612"  width="200px" height="250px"class="d-block w-100" alt="...">
+                    <img id="city-image-0" src="https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612"  width="200px" height="250px"class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" width="200px" height="250px" class="d-block w-100" alt="...">
+                    <img id="city-image-1" src="https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" width="200px" height="250px" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
+                    <img id="city-image-2" src="https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000" width="200px" height="250px" class="d-block w-100" alt="...">
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -234,17 +230,7 @@
         </div>
         
   
-      <table id="weather-display" class="table weather">
-        <thead>
-            <tr>
-                <th id ="">Date</th>
-                <th id ="">High</th>
-                <th id =""> Low</th>
-                <th id =""> Summary</th>
-                <th id =""> Overview</th>
-            </tr>
-        </thead>
-    </table>
+      
 
   
     <div class="container" id="events">
