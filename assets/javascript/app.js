@@ -114,6 +114,16 @@ $("#btn-submit").on("click", function() {
           " Icon: " +
           forecastDays[i].icon;
         console.log(dailyForecast);
+
+        //Generates horizontal table
+        //TODO: Integrate date and time into day
+        var forecastHTML=
+          '<tr><td>'+ ["Day " + i] + '</td><td>'
+          + forecastDays[i].temperatureHigh + '</td><td>'
+          + forecastDays[i].temperatureLow + '</td><td>'
+          + forecastDays[i].summary + '</td><td>'
+          +  forecastDays[i].icon + '</td></tr>';
+        $('.weather').append(forecastHTML);
       }
     });
   });
