@@ -63,180 +63,175 @@
   </head>
 
   <body>
-
     <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+      <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand text-white" target="_blank">
+          <strong>Travel App Companion</strong>
+        </a>
 
-    <!-- Brand -->
-    <a class="navbar-brand text-white" target="_blank">
-      <strong>Travel App Companion</strong>
-    </a>
+        <!-- Collapse -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <!-- Collapse -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+              <a class="nav-link" href="#"
+                >Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
 
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <!-- Left -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        
-      </ul>
-
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a href="" class="nav-link" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link" target="_blank">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link border border-light rounded"
-            target="_blank">
-            Log In
-          </a>
-        </li>
-      </ul>
-
-    </div>
-
-  </div>
-</nav>
-<!-- Navbar -->
-
-
- <!-- Full Page Intro -->
- <div class="view" style="background-image: url('assets/images/img1.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-  <!-- Mask-->
-  <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
-    <!-- Content -->
-    <div class="row text-center white-text mx-5 ">
-      <div class="col">
-        <h1 class="mb-4">
-          <strong>Your Destination Awaits</strong>
-        </h1>
-        <div class="input-group mb-3">
-          <input id="destination-input" type="text" class="form-control" placeholder="Where would you like to go?" aria-label=""
-            aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 " type="button" > Travel</button>
-          </div>
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="" class="nav-link" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href=""
+                class="nav-link border border-light rounded"
+                target="_blank"
+              >
+                Log In
+              </a>
+            </li>
+          </ul>
         </div>
-        
       </div>
-      
-    </div>
-    <!-- Content -->
+    </nav>
+    <!-- Navbar -->
 
-  </div>
-  <!-- Mask -->
-
-</div>
-<!-- Full Page Intro -->
-
-
-
-<!-- Main Content -->
-
-    <div class="container" id="wrapper">
-      <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
-      <!-- To Do: Results Section -->
-        <div class="row">
-          <div class="col-md">
-            <div class="card" style="width: 25rem;">
-              <div class="card-body">
-                <h5 class="card-title" id="destination-input">City</h5>
-                <p class="card-text" id="todays-date">Today's Date</p>
-                <p class="card-text" id="day0-weatherOverview">Weather Overview</p>
-                <h2 id="day0-tmp">90</h2>
-
-                
-                <!-- collapse here -->
-
-                <p>
-                  
-                  
-                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand Weather</button>
-                </p>
-                <div class="row">
-                  <div class="col">
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                      <div class="card card-body" id="dailyTempDisplay">
-                        <div class="row">
-                          <div class="col-6">
-                            Friday ,March 13th
-                          </div>
-                          <div class="col">
-                            Icon
-                          </div>
-                          <div class="col">
-                            24C 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                
-                </div>
-
-
-
-
-
-
-
-
-
+    <!-- Full Page Intro -->
+    <div
+      class="view"
+      style="background-image: url('assets/images/img1.jpg'); background-repeat: no-repeat; background-size: cover;"
+    >
+      <!-- Mask-->
+      <div
+        class="mask rgba-black-light d-flex justify-content-center align-items-center"
+      >
+        <!-- Content -->
+        <div class="row text-center white-text mx-5 ">
+          <div class="col">
+            <h1 class="mb-4">
+              <strong>Your Destination Awaits</strong>
+            </h1>
+            <div class="input-group mb-3">
+              <input
+                id="destination-input"
+                type="text"
+                class="form-control"
+                placeholder="Where would you like to go?"
+                aria-label=""
+                aria-describedby="button-addon2"
+              />
+              <div class="input-group-append">
+                <button
+                  id="btn-submit"
+                  class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 "
+                  type="button"
+                >
+                  Travel
+                </button>
               </div>
             </div>
           </div>
         </div>
-  
+        <!-- Content -->
+      </div>
+      <!-- Mask -->
+    </div>
+    <!-- Full Page Intro -->
+
+    <!-- Main Content -->
+
+    <div class="container" id="wrapper">
+      <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
+      <!-- To Do: Results Section -->
+      <div class="row">
+        <div class="col-md">
+          <div class="card" style="width: 25rem;">
+            <div class="card-body">
+              <h5 class="card-title" id="destination-city">City</h5>
+              <p class="card-text" id="todays-date">Today's Date</p>
+              <p class="card-text" id="day0-weatherOverview">
+                Weather Overview
+              </p>
+              <h2 id="day0-tmp">90</h2>
+
+              <!-- collapse here -->
+
+              <p>
+                <button
+                  class="btn btn-outline-dark btn-sm"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target=".multi-collapse"
+                  aria-expanded="false"
+                  aria-controls="multiCollapseExample1 multiCollapseExample2"
+                >
+                  Expand Weather
+                </button>
+              </p>
+              <div class="row">
+                <div class="col">
+                  <div
+                    class="collapse multi-collapse"
+                    id="multiCollapseExample1"
+                  >
+                    <div class="card card-body" id="dailyTempDisplay">
+                      <div class="row">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <table id="weather-display" class="table weather">
         <thead>
-            <tr>
-                <th id ="">Date</th>
-                <th id ="">High</th>
-                <th id =""> Low</th>
-                <th id =""> Summary</th>
-                <th id =""> Overview</th>
-            </tr>
+          <tr>
+            <th id="">Date</th>
+            <th id="">High</th>
+            <th id="">Low</th>
+            <th id="">Summary</th>
+            <th id="">Overview</th>
+          </tr>
         </thead>
-    </table>
+      </table>
 
-  
-    <div class="container" id="events">
-      <div class="row">
-        <div class="col" id="eventDisplay"></div>
+      <div class="container" id="events">
+        <div class="row">
+          <div class="col" id="eventDisplay"></div>
+        </div>
       </div>
     </div>
-    
-
-  </div>
-
-
-  
-
-
-
-
-
 
     <footer>
       <!-- Copyright Info, contact links, social media...  -->

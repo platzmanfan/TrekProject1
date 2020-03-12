@@ -32,8 +32,6 @@ var daysText = [];
 
 //Functions
 
-//03-12-2020 frontend
-
 //Get todays date and create array with strings for 7 days out
 function getDays() {
   var startingDay = moment().format("dddd , MMMM Do");
@@ -48,10 +46,43 @@ function getDays() {
   console.log(daysText);
 }
 
-//Create Weather and Append to page
-function createWeatherCard() {}
+//Create Weather Card and Append to page
+function createWeatherCard(destination, forecastResults) {
+  //Get days
+  getDays();
 
-//03-12-2020 frontend-end
+  //Update Destination city, todays date and weather
+  $("#destination-city").text(destination);
+  $("#todays-date").text(daysText[0]);
+  $("#day0-weatherOverview").text(forecastResults[0].summary);
+  $("#day0-tmp").text(
+    forecastResults[0].temperatureHigh +
+      " / " +
+      forecastResults[0].temperatureLow
+  );
+
+  //Create card for each day in forcast results
+
+  for (var i = 1; i < forecastResults.length - 1; i++) {
+    var date = daysText[i];
+    var tempHigh = forecastResults[i].temperatureHigh;
+    var tempLow = forecastResults[i].temperatureLow;
+    var overview = forecastResults[i].summary;
+
+    var newRow = $("<div>").addClass("row");
+
+    var dateCol = $("<div>")
+      .addClass("col-6")
+      .text(date);
+    var iconCol = $("<div>").addClass("col");
+    var tempCol = $("<div>")
+      .addClass("col")
+      .text(tempHigh);
+
+    newRow.append(dateCol, iconCol, tempCol);
+    $("#dailyTempDisplay").append(newRow);
+  }
+}
 
 //Submit button on click event handler
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
@@ -60,6 +91,7 @@ function createWeatherCard() {}
 $("#btn-submit").on("click", function() {
   event.preventDefault();
   //TODO: add better input validation
+
   var destinationCity;
   var originCity;
   if ($("#destination-input").val() != undefined) {
@@ -83,6 +115,7 @@ $("#btn-submit").on("click", function() {
 
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
+
   var directionsURL =
     "http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
     originCity +
@@ -125,36 +158,38 @@ $("#btn-submit").on("click", function() {
       var forecastDays = results.daily.data;
       console.log(forecastDays);
       //note: want temperatureHigh, temperatureLow, summary, icon
-      for (var i = 0; i < forecastDays.length; i++) {
-        //test string
-        var dailyForecast =
-          "High: " +
-          forecastDays[i].temperatureHigh +
-          " Low: " +
-          forecastDays[i].temperatureLow +
-          " Summary: " +
-          forecastDays[i].summary +
-          " Icon: " +
-          forecastDays[i].icon;
-        console.log(dailyForecast);
+      // for (var i = 0; i < forecastDays.length; i++) {
+      //   //test string
+      //   var dailyForecast =
+      //     "High: " +
+      //     forecastDays[i].temperatureHigh +
+      //     " Low: " +
+      //     forecastDays[i].temperatureLow +
+      //     " Summary: " +
+      //     forecastDays[i].summary +
+      //     " Icon: " +
+      //     forecastDays[i].icon;
+      //   console.log(dailyForecast);
 
-        //Generates horizontal table
-        //TODO: Integrate date and time into day
-        var forecastHTML =
-          "<tr><td>" +
-          ["Day " + i] +
-          "</td><td>" +
-          forecastDays[i].temperatureHigh +
-          "</td><td>" +
-          forecastDays[i].temperatureLow +
-          "</td><td>" +
-          forecastDays[i].summary +
-          "</td><td>" +
-          forecastDays[i].icon +
-          "</td></tr>";
-        $(".weather").append(forecastHTML);
-      }
+      //   //Generates horizontal table
+      //   //TODO: Integrate date and time into day
+      //   var forecastHTML =
+      //     "<tr><td>" +
+      //     ["Day " + i] +
+      //     "</td><td>" +
+      //     forecastDays[i].temperatureHigh +
+      //     "</td><td>" +
+      //     forecastDays[i].temperatureLow +
+      //     "</td><td>" +
+      //     forecastDays[i].summary +
+      //     "</td><td>" +
+      //     forecastDays[i].icon +
+      //     "</td></tr>";
+      //   $(".weather").append(forecastHTML);
+      // }
+      createWeatherCard(destinationCity, forecastDays);
     });
+
     $(".weather").empty();
   });
 });
