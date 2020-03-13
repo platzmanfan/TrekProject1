@@ -43,7 +43,7 @@ function getDays() {
     daysText.push(nextday);
   }
 
-  console.log(daysText);
+  //console.log(daysText);
 }
 
 //Get icon string from forecast data and returns associated icon class
@@ -77,6 +77,20 @@ function iconClass(icondata) {
   //
 }
 
+
+
+//TODO: fill out this function (note that directions is an array of strings of variable size)
+function createDirectionsCard(destinationCity, originCity, directions)
+{
+
+}
+
+//TODO: fill out this function (events is an array of event objects with properties title, address, and description)
+function createEventsCard(destinationCity, events)
+{
+
+}
+
 //Create Weather Card and Append to page
 function createWeatherCard(destination, forecastResults) {
   //Get days
@@ -97,7 +111,7 @@ function createWeatherCard(destination, forecastResults) {
   var newBody = $("");
 
   //Create row for each day in forcast results
-
+  $("#dailyTempDisplay").empty();
   for (var i = 1; i < forecastResults.length - 1; i++) {
     var date = daysText[i];
     var tempHigh = Math.floor(forecastResults[i].temperatureHigh);
@@ -133,8 +147,8 @@ $("#btn-submit").on("click", function() {
   event.preventDefault();
   //TODO: add better input validation
 
-  var destinationCity;
-  var originCity;
+  var destinationCity="";
+  var originCity="";
   if ($("#destination-input").val() != undefined) {
     destinationCity = $("#destination-input")
       .val()
@@ -153,18 +167,55 @@ $("#btn-submit").on("click", function() {
   } else {
     //TODO: set tripDate equal to current time
   }
+  console.log(originCity);
+  console.log(destinationCity);
+
+  //TODO delete this line after testing, forces origin city
+  originCity="san francisco";
 
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
-
-  var directionsURL =
-    "http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
+  if(destinationCity.length>0 && originCity.length>0)
+  {
+    var directionsURL =
+    "https://cors-anywhere.herokuapp.com/http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
     originCity +
     "&to=" +
     destinationCity;
 
+
+    $.ajax({
+      url: directionsURL,
+      method: "GET"
+    }).then(function(response) {
+      //console.log(response);
+      var steps=response.route.legs[0].maneuvers;
+      var directions=[];
+      for(var i=0; i<steps.length; i++)
+      {
+        //console.log(steps[i].narrative);
+        directions.push(steps[i].narrative);
+      }
+      createDirectionsCard(destinationCity, originCity, directions);
+    });
+
+
+  }
+
+
+ 
+  if(destinationCity.length>0)
+  {
+
+
+
+
+  var eventsApiKey="NvkjfRqn6GrLB7PF";
+  var eventsQueryURL="https://cors-anywhere.herokuapp.com/http://api.eventful.com/json/events/search?&app_key=" + eventsApiKey 
+                  + "&location=" + destinationCity;
+
   //TODO: confirm that this api key is mine
-  //TODO: any additional validation of city name
+  //TODO: any additional validation of city name??
   var weatherApiKey = "d5c1138b95b6df5cb3340a9ed55fd35b";
   var weatherQueryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -172,7 +223,29 @@ $("#btn-submit").on("click", function() {
     "&units=metric&appid=" +
     weatherApiKey;
 
-  //TODO: Replace use of openweathermap with better geocoding api
+  $.ajax({
+    url: eventsQueryURL,
+    method: "GET"
+  }).then(function(response) {
+    var objResponse=JSON.parse(response);
+    var events=[];
+
+    for(var i=0; i<objResponse.events.event.length; i++)
+    {
+      var current=objResponse.events.event[i];
+      var event={
+        title: current.title,
+        address: current.venue_address,
+        description: current.description
+      }
+      events.push(event);
+    }
+    //console.log(events);
+    createEventsCard(destinationCity, events);
+  });
+
+
+  
   $.ajax({
     url: weatherQueryURL,
     method: "GET"
@@ -196,33 +269,19 @@ $("#btn-submit").on("click", function() {
     }).then(function(response) {
       var results = response;
       var forecastDays = results.daily.data;
-      console.log(forecastDays);
-      //note: want temperatureHigh, temperatureLow, summary, icon
-      for (var i = 0; i < forecastDays.length; i++) {
-        //test string
-        var dailyForecast =
-          "High: " +
-          forecastDays[i].temperatureHigh +
-          " Low: " +
-          forecastDays[i].temperatureLow +
-          " Summary: " +
-          forecastDays[i].summary +
-          " Icon: " +
-          forecastDays[i].icon;
-        console.log(dailyForecast);
-      }
 
       //Update Weather Card
       createWeatherCard(destinationCity, forecastDays);
 
       //Slide page down to results AFTER ALL CARDS ARE UPDATED
-
       $("html,body").animate(
         { scrollTop: $(".main-content").offset().top },
         "slow"
       );
     });
-
-    $(".weather").empty();
+    //Commented out because weather class no longer exists in HTML, and empty is called elsewhere
+    //$(".weather").empty();
   });
+  }
+
 });
