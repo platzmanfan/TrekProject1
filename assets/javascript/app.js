@@ -78,6 +78,7 @@ function iconClass(icondata) {
 }
 
 //TODO: fill out this function (note that directions is an array of strings of variable size)
+
 function updateDirectionsCard(destinationCity, originCity, directions) {
   //Change Heading
   $("#directions-city").html("Directions to " + destinationCity);
@@ -127,6 +128,7 @@ function updateEventsCard(destinationCity, events) {
     $("#card-" + i + "address").html(address);
     $("#card-" + i + "desc").html(desc);
   }
+
 }
 
 //Create Weather Card and Append to page
