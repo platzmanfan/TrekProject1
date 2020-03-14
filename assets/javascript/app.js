@@ -77,18 +77,56 @@ function iconClass(icondata) {
   //
 }
 
-
-
 //TODO: fill out this function (note that directions is an array of strings of variable size)
-function createDirectionsCard(destinationCity, originCity, directions)
-{
+function updateDirectionsCard(destinationCity, originCity, directions) {
+  //Change Heading
+  $("#directions-city").html("Directions to " + destinationCity);
 
+  //Get Table
+  var directionsTable = $("directions-table");
+  //Empty Table
+  directionsTable.empty();
+
+  //Append direction to Directions card table
+  directions.forEach(element => {
+    //Create table row
+    var newRow = $("<tr>");
+
+    var newCol = $("<td>")
+      .addClass("font-weight-normal")
+      .text(element);
+
+    newRow.append(newCol);
+    // append new table row
+    directions.append(newRow);
+  });
 }
 
 //TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
-function createEventsCard(destinationCity, events)
-{
+function updateEventsCard(destinationCity, events) {
+  //console.log(events);
 
+  //Assign events to events card
+  for (var i = 0; i < events.length; ) {
+    var title = events[i].title;
+    var address = events[i].address;
+
+    //if no desc, place generic
+    if (events[i].desc === null) {
+      var desc = "No description available";
+    } else {
+      var desc = events[i].description;
+    }
+
+    var time = events.time;
+    // var image = events.image;
+
+    //Update HTML elements
+    $("#card-" + i + "title").html(title);
+    $("#card-" + i + "time").html(time);
+    $("#card-" + i + "address").html(address);
+    $("#card-" + i + "desc").html(desc);
+  }
 }
 
 //Create Weather Card and Append to page
@@ -147,8 +185,8 @@ $("#btn-submit").on("click", function() {
   event.preventDefault();
   //TODO: add better input validation
 
-  var destinationCity="";
-  var originCity="";
+  var destinationCity = "";
+  var originCity = "";
   if ($("#destination-input").val() != undefined) {
     destinationCity = $("#destination-input")
       .val()
@@ -171,61 +209,59 @@ $("#btn-submit").on("click", function() {
   console.log(destinationCity);
 
   //TODO delete this line after testing, forces origin city
-  originCity="san francisco";
+  originCity = "san francisco";
 
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
-  if(destinationCity.length>0 && originCity.length>0)
-  {
+  if (destinationCity.length > 0 && originCity.length > 0) {
     var directionsURL =
-    "https://cors-anywhere.herokuapp.com/http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
-    originCity +
-    "&to=" +
-    destinationCity;
-
+      "https://cors-anywhere.herokuapp.com/http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
+      originCity +
+      "&to=" +
+      destinationCity;
 
     $.ajax({
       url: directionsURL,
       method: "GET"
     }).then(function(response) {
       //console.log(response);
-      var steps=response.route.legs[0].maneuvers;
-      var directions=[];
-      for(var i=0; i<steps.length; i++)
-      {
+      var steps = response.route.legs[0].maneuvers;
+      var directions = [];
+      for (var i = 0; i < steps.length; i++) {
         //console.log(steps[i].narrative);
         directions.push(steps[i].narrative);
       }
       createDirectionsCard(destinationCity, originCity, directions);
     });
-
-
   }
 
+  if (destinationCity.length > 0) {
+    var timeString = "This Week";
+    var eventsApiKey = "NvkjfRqn6GrLB7PF";
+    var eventsQueryURL =
+      "https://cors-anywhere.herokuapp.com/http://api.eventful.com/json/events/search?&app_key=" +
+      eventsApiKey +
+      "&location=" +
+      destinationCity +
+      "&date=" +
+      timeString;
 
- 
-  if(destinationCity.length>0)
-  {
-
-
-
-  var timeString="This Week"
-  var eventsApiKey="NvkjfRqn6GrLB7PF";
-  var eventsQueryURL="https://cors-anywhere.herokuapp.com/http://api.eventful.com/json/events/search?&app_key=" + eventsApiKey 
-                  + "&location=" + destinationCity + "&date=" + timeString;
-
-  //TODO: confirm that this api key is mine
-  //TODO: any additional validation of city name??
-  var weatherApiKey = "d5c1138b95b6df5cb3340a9ed55fd35b";
-  var weatherQueryURL =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    destinationCity +
-    "&units=metric&appid=" +
-    weatherApiKey;
-
+    //TODO: confirm that this api key is mine
+    //TODO: any additional validation of city name??
+    var weatherApiKey = "d5c1138b95b6df5cb3340a9ed55fd35b";
+    var weatherQueryURL =
+      "https://api.openweathermap.org/data/2.5/weather?q=" +
+      destinationCity +
+      "&units=metric&appid=" +
+      weatherApiKey;
 
     var pixabayApiKey = "15601799-1eeb362733cc8b4dd8f7e5c79";
-    var pixabayQueryURL = "https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=" + pixabayApiKey + "&q=" + destinationCity + "&image_type=photo";
+    var pixabayQueryURL =
+      "https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=" +
+      pixabayApiKey +
+      "&q=" +
+      destinationCity +
+      "&image_type=photo";
 
     //returns an array of image strings, maximum of 5
     $.ajax({
@@ -233,78 +269,72 @@ $("#btn-submit").on("click", function() {
       method: "GET"
     }).then(function(response) {
       console.log(response);
-      var pictureList=response.hits;
-      var pictureLinks=[];
-      for(var i=0; i<Math.min(5,pictureList.length); i++)
-      {
+      var pictureList = response.hits;
+      var pictureLinks = [];
+      for (var i = 0; i < Math.min(5, pictureList.length); i++) {
         pictureLinks.push(pictureList[i].webformatURL);
       }
       //console.log(pictureLinks);
     });
 
-
-  $.ajax({
-    url: eventsQueryURL,
-    method: "GET"
-  }).then(function(response) {
-    var objResponse=JSON.parse(response);
-    //console.log(objResponse);
-    var events=[];
-
-    for(var i=0; i<objResponse.events.event.length; i++)
-    {
-      var current=objResponse.events.event[i];
-      var event={
-        title: current.title,
-        address: current.venue_address,
-        description: current.description,
-        time: current.start_time,
-        image: current.image
-      }
-      events.push(event);
-    }
-    //console.log(events);
-    createEventsCard(destinationCity, events);
-  });
-
-
-  
-  $.ajax({
-    url: weatherQueryURL,
-    method: "GET"
-  }).then(function(response) {
-    var results = response;
-
-    var longitude = results.coord.lon;
-    var latitude = results.coord.lat;
-    console.log(latitude + " " + longitude);
-    var forecastApiKey = "b03c701ae13c94ebdf444f913a4567d9";
-    var forecastQueryURL =
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" +
-      forecastApiKey +
-      "/" +
-      latitude +
-      "," +
-      longitude;
     $.ajax({
-      url: forecastQueryURL,
+      url: eventsQueryURL,
+      method: "GET"
+    }).then(function(response) {
+      var objResponse = JSON.parse(response);
+      //console.log(objResponse);
+      var events = [];
+
+      for (var i = 0; i < objResponse.events.event.length; i++) {
+        var current = objResponse.events.event[i];
+        var event = {
+          title: current.title,
+          address: current.venue_address,
+          description: current.description,
+          time: current.start_time,
+          image: current.image
+        };
+        events.push(event);
+      }
+      //console.log(events);
+      updateEventsCard(destinationCity, events);
+    });
+
+    $.ajax({
+      url: weatherQueryURL,
       method: "GET"
     }).then(function(response) {
       var results = response;
-      var forecastDays = results.daily.data;
 
-      //Update Weather Card
-      createWeatherCard(destinationCity, forecastDays);
+      var longitude = results.coord.lon;
+      var latitude = results.coord.lat;
+      console.log(latitude + " " + longitude);
+      var forecastApiKey = "b03c701ae13c94ebdf444f913a4567d9";
+      var forecastQueryURL =
+        "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" +
+        forecastApiKey +
+        "/" +
+        latitude +
+        "," +
+        longitude;
+      $.ajax({
+        url: forecastQueryURL,
+        method: "GET"
+      }).then(function(response) {
+        var results = response;
+        var forecastDays = results.daily.data;
 
-      //Slide page down to results AFTER ALL CARDS ARE UPDATED
-      $("html,body").animate(
-        { scrollTop: $(".main-content").offset().top },
-        "slow"
-      );
+        //Update Weather Card
+        createWeatherCard(destinationCity, forecastDays);
+
+        //Slide page down to results AFTER ALL CARDS ARE UPDATED
+        $("html,body").animate(
+          { scrollTop: $(".main-content").offset().top },
+          "slow"
+        );
+      });
+      //Commented out because weather class no longer exists in HTML, and empty is called elsewhere
+      //$(".weather").empty();
     });
-    //Commented out because weather class no longer exists in HTML, and empty is called elsewhere
-    //$(".weather").empty();
-  });
   }
-
 });
