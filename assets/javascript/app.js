@@ -77,14 +77,13 @@ function iconClass(icondata) {
   //
 }
 
-//TODO: fill out this function (note that directions is an array of strings of variable size)
-
+//Update Directions card with turn by turn to destination
 function updateDirectionsCard(destinationCity, originCity, directions) {
   //Change Heading
-  $("#directions-city").html("Directions to " + destinationCity);
+  $("#directions-city").html("Directions from " + originCity);
 
   //Get Table
-  var directionsTable = $("directions-table");
+  var directionsTable = $("#directions-table");
   //Empty Table
   directionsTable.empty();
 
@@ -99,36 +98,54 @@ function updateDirectionsCard(destinationCity, originCity, directions) {
 
     newRow.append(newCol);
     // append new table row
-    directions.append(newRow);
+    directionsTable.append(newRow);
   });
 }
 
 //TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
 function updateEventsCard(destinationCity, events) {
-  //console.log(events);
+  console.log(events);
 
   //Assign events to events card
-  for (var i = 0; i < events.length; ) {
-    var title = events[i].title;
-    var address = events[i].address;
+  for (var i = 0; i < events.length; i++) {
+    var titleId = "#card-" + i + "-title";
+    var timeId = "#card-" + i + "-time";
+    var addressId = "#card-" + i + "-address";
+    var descId = "#card-" + i + "-des";
 
-    //if no desc, place generic
-    if (events[i].desc === null) {
-      var desc = "No description available";
+    var title = events[i].title;
+
+    var address;
+    //if no address available, place generic
+    if (events[i].address == null) {
+      address = "No address available";
     } else {
-      var desc = events[i].description;
+      address = events[i].address;
     }
 
-    var time = events.time;
-    // var image = events.image;
+    var desc;
+    //if no desc, place generic
+    if (events[i].description == null) {
+      desc = "No description available";
+    } else {
+      desc = events[i].description;
+    }
+
+    var time;
+    //if no time, place generic
+    if (events[i].time == null) {
+      time = "No time available";
+    } else {
+      time = events[i].time;
+    }
 
     //Update HTML elements
-    $("#card-" + i + "title").html(title);
-    $("#card-" + i + "time").html(time);
-    $("#card-" + i + "address").html(address);
-    $("#card-" + i + "desc").html(desc);
-  }
 
+    $(titleId).text(title);
+    $(timeId).text(time);
+    $(addressId).text(address);
+    $(descId).text(desc);
+  }
 }
 
 //Create Weather Card and Append to page
@@ -233,7 +250,7 @@ $("#btn-submit").on("click", function() {
         //console.log(steps[i].narrative);
         directions.push(steps[i].narrative);
       }
-      createDirectionsCard(destinationCity, originCity, directions);
+      updateDirectionsCard(destinationCity, originCity, directions);
     });
   }
 

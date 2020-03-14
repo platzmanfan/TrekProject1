@@ -62,101 +62,101 @@
     <!--  -->
   </head>
 
-  <body>
+  <body class="">
 
     <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
 
-    <!-- Brand -->
-    <a class="navbar-brand text-white" target="_blank">
-      <strong>Travel App Companion</strong>
-    </a>
+      <!-- Brand -->
+      <a class="navbar-brand text-white" target="_blank">
+        <strong>Travel App Companion</strong>
+      </a>
 
-    <!-- Collapse -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-      <!-- Left -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-          <a class="nav-link" href="#">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        
-      </ul>
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item ">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          
+        </ul>
 
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a href="" class="nav-link" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link" target="_blank">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="" class="nav-link border border-light rounded"
-            target="_blank">
-            Log In
-          </a>
-        </li>
-      </ul>
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+          <li class="nav-item">
+            <a href="" class="nav-link" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link border border-light rounded"
+              target="_blank">
+              Log In
+            </a>
+          </li>
+        </ul>
+
+      </div>
 
     </div>
-
-  </div>
-</nav>
-<!-- Navbar -->
+    </nav>
+    <!-- Navbar -->
 
 
- <!-- Full Page Intro -->
- <div class="view" style="background-image: url('assets/images/img1.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <!-- Full Page Intro -->
+    <div class="view" style="background-image: url('assets/images/img1.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-  <!-- Mask-->
-  <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+    <!-- Mask-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-    <!-- Content -->
-    <div class="row text-center white-text mx-5 ">
-      <div class="col">
-        <h1 class="mb-4">
-          <strong>Your Destination Awaits</strong>
-        </h1>
-        <div class="input-group mb-3">
-          <input id="destination-input" type="text" class="form-control" placeholder="Where would you like to go?" aria-label=""
-            aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 " type="button" > Travel</button>
+      <!-- Content -->
+      <div class="row text-center white-text mx-5 ">
+        <div class="col">
+          <h1 class="mb-4">
+            <strong>Your Destination Awaits</strong>
+          </h1>
+          <div class="input-group mb-3">
+            <input id="destination-input" type="text" class="form-control" placeholder="Where would you like to go?" aria-label=""
+              aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 " type="button" > Travel</button>
+            </div>
           </div>
+          
         </div>
         
       </div>
-      
+      <!-- Content -->
+
     </div>
-    <!-- Content -->
+    <!-- Mask -->
 
-  </div>
-  <!-- Mask -->
-
-</div>
-<!-- Full Page Intro -->
+    </div>
+    <!-- Full Page Intro -->
 
 
 
-<!-- Main Content -->
+    <!-- Main Content -->
+    <div class="container main-content " id="wrapper">
+      <!-- Landing Section with Weather, City Image Gallery, Directions and Events-->
 
-    <div class="container main-content" id="wrapper">
-      <!-- To Do: Landing Section with travel info, previous trips, ect. scroll down or click link to see-->
-      <!-- To Do: Results Section -->
+      <!-- Weather & City Images-->
         <div class="row my-3 py-2">
           <div class="col-md">
             <div class="card" style="width: 25rem;">
@@ -164,7 +164,7 @@
                 <h5 class="card-title" id="destination-city">San Francisco</h5>
                 <p class="card-text" id="todays-date">Today's Date</p>
                 <p class="card-text" id="day0-weatherOverview">Weather Overview</p>
-                <h2 id="day0-tmp">90</h2>
+                <h2 id="day0-tmp">50</h2>
                 <div class="col-md">
 
                   </div>
@@ -174,7 +174,7 @@
 
                   
                   
-                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand 7 Day Forecast</button>
+                  <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">7 Day Forecast</button>
                 </p>
                 <div class="row">
                   <div class="col">
@@ -192,14 +192,6 @@
                   </div>
                 
                 </div>
-
-
-
-
-
-
-
-
 
               </div>
             </div>
@@ -226,195 +218,178 @@
                 </a>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="card" >
-                <div class="card-body">
-                  <h5 class="card-title" id="directions-city">Directions to San Francisco</h5>
-                  <div class="col-md">
-  
-                    </div>
-                  </div>
-                  
-                  <!-- collapse here -->
-  
-                    
-                    
-                    <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Expand Directions</button>
-                  </p>
-                  <div class="row">
-                    <div class="col">
-                      <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="card card-body" >
-                          <div class="row">
-                            <table class="table table-borderless table-sm mb-0">
-                              <tbody id="directions-table">
-  
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
+        </div>
+      <!-- Weather & City Images-->
+
+      <!-- TODO: HIDE DIRECTIONS IF NO INPUT -->
+      <!-- Directions-->
+        <div class="row">
+          <div class="col">
+            <div class="card" >
+              <div class="card-body">
+                <h5 class="card-title m-0 p-0" id="directions-city">Directions from San Francisco</h5>
+              </div>
+              <!-- collapse here -->   
+              <button class="btn btn-outline-dark btn-sm" type="button" data-toggle="collapse" data-target="#directionsCollapse" aria-expanded="false" aria-controls="directionsCollapse">Expand</button>
+              <div class="row">
+                <div class="col">
+                  <div class="collapse" id="directionsCollapse">
+                    <div class="card card-body" >
+                      <div class="row">
+                        <table class="table table-borderless table-sm mb-0">
+                          <tbody id="directions-table">
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-                  
                   </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
                 </div>
+              </div>
             </div>
-          </div>
-          <div class="row my-3">
-            <div class="col">
-              <h2 class="text-center">EVENTS IN DESTINATION</h2>
-            </div>
-          </div>
-
-
-          <div class="row">
-            <!-- events here -->
-            <div class="col">
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-0-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-0-des">Special title treatment</h5>
-                  <p class="card-0-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-0-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-1-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-1-des">Special title treatment</h5>
-                  <p class="card-1-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-1-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-2-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-2-des">Special title treatment</h5>
-                  <p class="card-2-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-2-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-3-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-3-des">Special title treatment</h5>
-                  <p class="card-3-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-3-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-4-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-4-des">Special title treatment</h5>
-                  <p class="card-4-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-4-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-5-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-5-des">Special title treatment</h5>
-                  <p class="card-5-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-5-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-6-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-6-des">Special title treatment</h5>
-                  <p class="card-6-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-6-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-7-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-7-des">Special title treatment</h5>
-                  <p class="card-7-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-7-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-8-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-8-des">Special title treatment</h5>
-                  <p class="card-8-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-8-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-              <div class="card mb-2">
-                <h5 class="card-header"id="card-9-title">Featured</h5>
-                <div class="card-body">
-                  <h5 class="card-9-des">Special title treatment</h5>
-                  <p class="card-9-time">With supporting text below as a natural lead-in to additional content.</p>
-                  <p class="card-9-address">With supporting text below as a natural lead-in to additional content.</p>
-
-                  <a href="#" class="btn btn-primary">View Venue</a>
-                </div>
-              </div>
-            
-            
-            
-            
-            </div>
-            <!-- directions here -->
-        
           </div>
         </div>
-        
-  
-      
 
-  
-    <div class="container" id="events">
-      <div class="row">
-        <div class="col" id="eventDisplay">EVENTS</div> 
-          <div class="col" id="destinationDisplay">DESTINATIONS</div>
-        
+      <!-- Events Header-->
+        <div class="row my-3">
+          <div class="col">
+            <h4 class="text-center">EVENTS IN DESTINATION</h4>
+          </div>
+        </div>
+      <!-- Events Header -->
+
+
+      <!-- Events -->
+        <div class="row">
+          <div class="col">
+            
+            <!-- Event Card 0-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-0-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-0-des">Desciption</h5>
+                <p id="card-0-time">Date and Time</p>
+                <p id="card-0-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 1-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-1-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-1-des">Desciption</h5>
+                <p id="card-1-time">Date and Time</p>
+                <p id="card-1-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 2-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-2-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-2-des">Desciption</h5>
+                <p id="card-2-time">Date and Time</p>
+                <p id="card-2-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 3-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-3-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-3-des">Desciption</h5>
+                <p id="card-3-time">Date and Time</p>
+                <p id="card-3-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 4-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-4-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-4-des">Desciption</h5>
+                <p id="card-4-time">Date and Time</p>
+                <p id="card-4-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 5-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-5-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-5-des">Desciption</h5>
+                <p id="card-5-time">Date and Time</p>
+                <p id="card-5-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 6-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-6-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-6-des">Desciption</h5>
+                <p id="card-6-time">Date and Time</p>
+                <p id="card-6-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 7-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-7-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-7-des">Desciption</h5>
+                <p id="card-7-time">Date and Time</p>
+                <p id="card-7-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 8-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-8-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-8-des">Desciption</h5>
+                <p id="card-8-time">Date and Time</p>
+                <p id="card-8-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+
+            <!-- Event Card 9-->
+            <div class="card mb-2">
+              <h5 class="card-header"id="card-9-title">Event Title</h5>
+              <div class="card-body">
+                <h5 id="card-9-des">Desciption</h5>
+                <p id="card-9-time">Date and Time</p>
+                <p id="card-9-address">Address</p>
+                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+              </div>
+            </div>
+            <!-- Event Card-end -->
+            
+          </div>
+        </div>
+      <!-- Events -->
+
     </div>
-
-
-
-  </div>
-
-
-
+    <!-- Main Content -->
+        
   
-
-
-
-  
-
-
     <footer>
       <!-- Copyright Info, contact links, social media...  -->
     </footer>
