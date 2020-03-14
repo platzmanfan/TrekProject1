@@ -85,7 +85,7 @@ function createDirectionsCard(destinationCity, originCity, directions)
 
 }
 
-//TODO: fill out this function (events is an array of event objects with properties title, address, and description)
+//TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
 function createEventsCard(destinationCity, events)
 {
 
@@ -209,10 +209,10 @@ $("#btn-submit").on("click", function() {
 
 
 
-
+  var timeString="This Week"
   var eventsApiKey="NvkjfRqn6GrLB7PF";
   var eventsQueryURL="https://cors-anywhere.herokuapp.com/http://api.eventful.com/json/events/search?&app_key=" + eventsApiKey 
-                  + "&location=" + destinationCity;
+                  + "&location=" + destinationCity + "&date=" + timeString;
 
   //TODO: confirm that this api key is mine
   //TODO: any additional validation of city name??
@@ -223,11 +223,32 @@ $("#btn-submit").on("click", function() {
     "&units=metric&appid=" +
     weatherApiKey;
 
+
+    var pixabayApiKey = "15601799-1eeb362733cc8b4dd8f7e5c79";
+    var pixabayQueryURL = "https://cors-anywhere.herokuapp.com/https://pixabay.com/api/?key=" + pixabayApiKey + "&q=" + destinationCity + "&image_type=photo";
+
+    //returns an array of image strings, maximum of 5
+    $.ajax({
+      url: pixabayQueryURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+      var pictureList=response.hits;
+      var pictureLinks=[];
+      for(var i=0; i<Math.min(5,pictureList.length); i++)
+      {
+        pictureLinks.push(pictureList[i].webformatURL);
+      }
+      //console.log(pictureLinks);
+    });
+
+
   $.ajax({
     url: eventsQueryURL,
     method: "GET"
   }).then(function(response) {
     var objResponse=JSON.parse(response);
+    //console.log(objResponse);
     var events=[];
 
     for(var i=0; i<objResponse.events.event.length; i++)
@@ -236,7 +257,9 @@ $("#btn-submit").on("click", function() {
       var event={
         title: current.title,
         address: current.venue_address,
-        description: current.description
+        description: current.description,
+        time: current.start_time,
+        image: current.image
       }
       events.push(event);
     }
