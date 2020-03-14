@@ -82,13 +82,13 @@ function iconClass(icondata) {
 //TODO: fill out this function (note that directions is an array of strings of variable size)
 function createDirectionsCard(destinationCity, originCity, directions)
 {
-
+  console.log(originCity)
 }
 
 //TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
 function createEventsCard(destinationCity, events)
 {
-
+  console.log(events)
 }
 
 //Create Weather Card and Append to page
