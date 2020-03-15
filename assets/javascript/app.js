@@ -77,6 +77,17 @@ function iconClass(icondata) {
   //
 }
 
+//Update slideshow with images
+function updateSlideShow(images) {
+  //console.log(images);
+
+  //for each image assign src to index
+  for (var i = 0; i < images.length; i++) {
+    var cardId = "#city-image-" + i;
+    $(cardId).attr("src", images[i]);
+  }
+}
+
 //Update Directions card with turn by turn to destination
 function updateDirectionsCard(destinationCity, originCity, directions) {
   //Change Heading
@@ -102,9 +113,9 @@ function updateDirectionsCard(destinationCity, originCity, directions) {
   });
 }
 
-//TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
+//Update each event card with title, address, description, start time, and image
 function updateEventsCard(destinationCity, events) {
-  console.log(events);
+  //console.log(events);
 
   //Assign events to events card
   for (var i = 0; i < events.length; i++) {
@@ -224,8 +235,8 @@ $("#btn-submit").on("click", function() {
   } else {
     //TODO: set tripDate equal to current time
   }
-  console.log(originCity);
-  console.log(destinationCity);
+  //console.log(originCity);
+  //console.log(destinationCity);
 
   //TODO delete this line after testing, forces origin city
   originCity = "san francisco";
@@ -287,13 +298,13 @@ $("#btn-submit").on("click", function() {
       url: pixabayQueryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+      //console.log(response);
       var pictureList = response.hits;
       var pictureLinks = [];
       for (var i = 0; i < Math.min(5, pictureList.length); i++) {
         pictureLinks.push(pictureList[i].webformatURL);
       }
-      //console.log(pictureLinks);
+      updateSlideShow(pictureLinks);
     });
 
     $.ajax({
@@ -327,7 +338,7 @@ $("#btn-submit").on("click", function() {
 
       var longitude = results.coord.lon;
       var latitude = results.coord.lat;
-      console.log(latitude + " " + longitude);
+      //console.log(latitude + " " + longitude);
       var forecastApiKey = "b03c701ae13c94ebdf444f913a4567d9";
       var forecastQueryURL =
         "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" +
