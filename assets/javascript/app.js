@@ -10,25 +10,29 @@
 //Firebase setup
 //TODO: Test that this is the correct firebase database config
 //TODO: Change firebase config away from default database info seen here
-// var config = {
-//   apiKey: "AIzaSyAkTkwBmhAnNRYp-ONq1FQXI1JWG_Pi4AU",
-//   authDomain: "myapp-487ea.firebaseapp.com",
-//   databaseURL: "https://myapp-487ea.firebaseio.com",
-//   projectId: "myapp-487ea",
-//   storageBucket: "myapp-487ea.appspot.com",
-//   messagingSenderId: "1009809046291",
-//   appId: "1:1009809046291:web:d9e25b1e0175b57f5bf8e6"
-// };
 
-// firebase.initializeApp(config);
+//Setup Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyD04RH4viytS6LGtxTYy0PUjxbqcHWEBj4",
+  authDomain: "travel-helper-8baf0.firebaseapp.com",
+  databaseURL: "https://travel-helper-8baf0.firebaseio.com",
+  projectId: "travel-helper-8baf0",
+  storageBucket: "travel-helper-8baf0.appspot.com",
+  messagingSenderId: "318582410710",
+  appId: "1:318582410710:web:b02b6fbb1c2c4a8016a877"
+};
 
-//Globals
-//var database = firebase.database();
+firebase.initializeApp(firebaseConfig);
+
+var database = firebase.database();
 
 var destinationCity;
 var originCity;
 var tripDate;
 var daysText = [];
+
+//TODO: New Global var, add to the rest;
+var popularCities;
 
 //Functions
 
@@ -207,6 +211,42 @@ function createWeatherCard(destination, forecastResults) {
   }
 }
 
+//This function should get called in the form addSearchToDatabase(destinationCity) in every valid search
+function addSearchToDatabase(mySearch) {
+  mySearch = mySearch.trim().toLowerCase();
+  console.log(mySearch);
+  var found = false;
+  for (var i = 0; i < popularCities.length; i++) {
+    if (popularCities[i].name === mySearch) {
+      popularCities[i].count++;
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    popularCities.push({ name: mySearch, count: 1 });
+  }
+
+  var updates = {};
+  updates["popularCities/"] = popularCities;
+  database.ref().update(updates);
+}
+
+//Returns the most city with the most searches currently.
+function findMostPopularCity() {
+  var currentMax = 0;
+  var mostPopular = "";
+
+  for (var i = 0; i < popularCities.length; i++) {
+    if (popularCities[i].count > currentMax) {
+      currentMax = popularCities[i].count;
+      mostPopular = popularCities[i].name;
+    }
+  }
+  //console.log(mostPopular);
+  return mostPopular;
+}
+
 //Submit button on click event handler
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
@@ -362,9 +402,25 @@ $("#btn-submit").on("click", function() {
           { scrollTop: $(".main-content").offset().top },
           "slow"
         );
+
+        //Store data to firebase
+        addSearchToDatabase(destinationCity);
       });
-      //Commented out because weather class no longer exists in HTML, and empty is called elsewhere
-      //$(".weather").empty();
     });
   }
 });
+
+//Updates local info from database in real time
+database.ref().on(
+  "value",
+  function(snapshot) {
+    //console.log(snapshot.val());
+
+    popularCities = snapshot.val().popularCities;
+    //console.log(popularCities);
+    console.log("most popular city is: " + findMostPopularCity());
+  },
+  function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  }
+);
