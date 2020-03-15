@@ -10,25 +10,29 @@
 //Firebase setup
 //TODO: Test that this is the correct firebase database config
 //TODO: Change firebase config away from default database info seen here
-// var config = {
-//   apiKey: "AIzaSyAkTkwBmhAnNRYp-ONq1FQXI1JWG_Pi4AU",
-//   authDomain: "myapp-487ea.firebaseapp.com",
-//   databaseURL: "https://myapp-487ea.firebaseio.com",
-//   projectId: "myapp-487ea",
-//   storageBucket: "myapp-487ea.appspot.com",
-//   messagingSenderId: "1009809046291",
-//   appId: "1:1009809046291:web:d9e25b1e0175b57f5bf8e6"
-// };
 
-// firebase.initializeApp(config);
+//Setup Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyD04RH4viytS6LGtxTYy0PUjxbqcHWEBj4",
+  authDomain: "travel-helper-8baf0.firebaseapp.com",
+  databaseURL: "https://travel-helper-8baf0.firebaseio.com",
+  projectId: "travel-helper-8baf0",
+  storageBucket: "travel-helper-8baf0.appspot.com",
+  messagingSenderId: "318582410710",
+  appId: "1:318582410710:web:b02b6fbb1c2c4a8016a877"
+};
 
-//Globals
-//var database = firebase.database();
+firebase.initializeApp(firebaseConfig);
+
+var database = firebase.database();
 
 var destinationCity;
 var originCity;
 var tripDate;
 var daysText = [];
+
+//TODO: New Global var, add to the rest;
+var popularCities;
 
 //Functions
 
@@ -77,14 +81,24 @@ function iconClass(icondata) {
   //
 }
 
-//TODO: fill out this function (note that directions is an array of strings of variable size)
+//Update slideshow with images
+function updateSlideShow(images) {
+  //console.log(images);
 
+  //for each image assign src to index
+  for (var i = 0; i < images.length; i++) {
+    var cardId = "#city-image-" + i;
+    $(cardId).attr("src", images[i]);
+  }
+}
+
+//Update Directions card with turn by turn to destination
 function updateDirectionsCard(destinationCity, originCity, directions) {
   //Change Heading
-  $("#directions-city").html("Directions to " + destinationCity);
+  $("#directions-city").html("Directions from " + originCity);
 
   //Get Table
-  var directionsTable = $("directions-table");
+  var directionsTable = $("#directions-table");
   //Empty Table
   directionsTable.empty();
 
@@ -99,36 +113,54 @@ function updateDirectionsCard(destinationCity, originCity, directions) {
 
     newRow.append(newCol);
     // append new table row
-    directions.append(newRow);
+    directionsTable.append(newRow);
   });
 }
 
-//TODO: fill out this function (events is an array of event objects with properties title, address, description, start time, and image)
+//Update each event card with title, address, description, start time, and image
 function updateEventsCard(destinationCity, events) {
   //console.log(events);
 
   //Assign events to events card
-  for (var i = 0; i < events.length; ) {
-    var title = events[i].title;
-    var address = events[i].address;
+  for (var i = 0; i < events.length; i++) {
+    var titleId = "#card-" + i + "-title";
+    var timeId = "#card-" + i + "-time";
+    var addressId = "#card-" + i + "-address";
+    var descId = "#card-" + i + "-des";
 
-    //if no desc, place generic
-    if (events[i].desc === null) {
-      var desc = "No description available";
+    var title = events[i].title;
+
+    var address;
+    //if no address available, place generic
+    if (events[i].address == null) {
+      address = "No address available";
     } else {
-      var desc = events[i].description;
+      address = events[i].address;
     }
 
-    var time = events.time;
-    // var image = events.image;
+    var desc;
+    //if no desc, place generic
+    if (events[i].description == null) {
+      desc = "No description available";
+    } else {
+      desc = events[i].description;
+    }
+
+    var time;
+    //if no time, place generic
+    if (events[i].time == null) {
+      time = "No time available";
+    } else {
+      time = events[i].time;
+    }
 
     //Update HTML elements
-    $("#card-" + i + "title").html(title);
-    $("#card-" + i + "time").html(time);
-    $("#card-" + i + "address").html(address);
-    $("#card-" + i + "desc").html(desc);
-  }
 
+    $(titleId).text(title);
+    $(timeId).text(time);
+    $(addressId).text(address);
+    $(descId).text(desc);
+  }
 }
 
 //Create Weather Card and Append to page
@@ -179,6 +211,42 @@ function createWeatherCard(destination, forecastResults) {
   }
 }
 
+//This function should get called in the form addSearchToDatabase(destinationCity) in every valid search
+function addSearchToDatabase(mySearch) {
+  mySearch = mySearch.trim().toLowerCase();
+  console.log(mySearch);
+  var found = false;
+  for (var i = 0; i < popularCities.length; i++) {
+    if (popularCities[i].name === mySearch) {
+      popularCities[i].count++;
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    popularCities.push({ name: mySearch, count: 1 });
+  }
+
+  var updates = {};
+  updates["popularCities/"] = popularCities;
+  database.ref().update(updates);
+}
+
+//Returns the most city with the most searches currently.
+function findMostPopularCity() {
+  var currentMax = 0;
+  var mostPopular = "";
+
+  for (var i = 0; i < popularCities.length; i++) {
+    if (popularCities[i].count > currentMax) {
+      currentMax = popularCities[i].count;
+      mostPopular = popularCities[i].name;
+    }
+  }
+  //console.log(mostPopular);
+  return mostPopular;
+}
+
 //Submit button on click event handler
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
@@ -207,8 +275,8 @@ $("#btn-submit").on("click", function() {
   } else {
     //TODO: set tripDate equal to current time
   }
-  console.log(originCity);
-  console.log(destinationCity);
+  //console.log(originCity);
+  //console.log(destinationCity);
 
   //TODO delete this line after testing, forces origin city
   originCity = "san francisco";
@@ -233,7 +301,7 @@ $("#btn-submit").on("click", function() {
         //console.log(steps[i].narrative);
         directions.push(steps[i].narrative);
       }
-      createDirectionsCard(destinationCity, originCity, directions);
+      updateDirectionsCard(destinationCity, originCity, directions);
     });
   }
 
@@ -270,13 +338,13 @@ $("#btn-submit").on("click", function() {
       url: pixabayQueryURL,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+      //console.log(response);
       var pictureList = response.hits;
       var pictureLinks = [];
       for (var i = 0; i < Math.min(5, pictureList.length); i++) {
         pictureLinks.push(pictureList[i].webformatURL);
       }
-      //console.log(pictureLinks);
+      updateSlideShow(pictureLinks);
     });
 
     $.ajax({
@@ -310,7 +378,7 @@ $("#btn-submit").on("click", function() {
 
       var longitude = results.coord.lon;
       var latitude = results.coord.lat;
-      console.log(latitude + " " + longitude);
+      //console.log(latitude + " " + longitude);
       var forecastApiKey = "b03c701ae13c94ebdf444f913a4567d9";
       var forecastQueryURL =
         "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/" +
@@ -334,9 +402,25 @@ $("#btn-submit").on("click", function() {
           { scrollTop: $(".main-content").offset().top },
           "slow"
         );
+
+        //Store data to firebase
+        addSearchToDatabase(destinationCity);
       });
-      //Commented out because weather class no longer exists in HTML, and empty is called elsewhere
-      //$(".weather").empty();
     });
   }
 });
+
+//Updates local info from database in real time
+database.ref().on(
+  "value",
+  function(snapshot) {
+    //console.log(snapshot.val());
+
+    popularCities = snapshot.val().popularCities;
+    //console.log(popularCities);
+    console.log("most popular city is: " + findMostPopularCity());
+  },
+  function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  }
+);
