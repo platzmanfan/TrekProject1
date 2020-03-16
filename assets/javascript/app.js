@@ -94,6 +94,9 @@ function updateSlideShow(images) {
 
 //Update Directions card with turn by turn to destination
 function updateDirectionsCard(destinationCity, originCity, directions) {
+  //Display Card
+  $("#directions-card").removeClass("d-none");
+
   //Change Heading
   $("#directions-city").html("Directions from " + originCity);
 
@@ -119,7 +122,7 @@ function updateDirectionsCard(destinationCity, originCity, directions) {
 
 //Update each event card with title, address, description, start time, and image
 function updateEventsCard(destinationCity, events) {
-  //console.log(events);
+  console.log(events);
 
   //Assign events to events card
   for (var i = 0; i < events.length; i++) {
@@ -169,7 +172,7 @@ function createWeatherCard(destination, forecastResults) {
   getDays();
 
   //Update Destination city, todays date and weather
-  $("#destination-city").text(destination);
+  $("#destination-city").text("TREK TO " + destination.toUpperCase());
   $("#todays-date").text(daysText[0]);
   $("#day0-weatherOverview").text(forecastResults[0].summary);
   $("#day0-tmp").text(
@@ -277,9 +280,6 @@ $("#btn-submit").on("click", function() {
   }
   //console.log(originCity);
   //console.log(destinationCity);
-
-  //TODO delete this line after testing, forces origin city
-  originCity = "san francisco";
 
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
@@ -399,7 +399,7 @@ $("#btn-submit").on("click", function() {
 
         //Slide page down to results AFTER ALL CARDS ARE UPDATED
         $("html,body").animate(
-          { scrollTop: $(".main-content").offset().top },
+          { scrollTop: $("#scroll-target").offset().top },
           "slow"
         );
 
