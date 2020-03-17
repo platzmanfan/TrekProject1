@@ -85,15 +85,16 @@ function iconClass(icondata) {
 //Update slideshow with images
 function updateSlideShow(images) {
   //console.log(images);
-  var defaultImages = ["https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
-    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000",
-    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000",
-    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"
-  ]
 
-  if (images.length === 0) {
-    images = defaultImages;
+  var defaultImages=["https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
+                    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+                    "https://handluggageonly.co.uk/wp-content/uploads/2015/11/906073_10153728868514784_5225031761405831432_o.jpg",
+                    "https://lh3.googleusercontent.com/proxy/EGGq6s43BUt2rtQZIep35ESOuX3ZFJ5Iw49MJiseAPDsE5PQwxPl3agWtK_dYfWw1awXUM5xPEh6rsfEtCBc9OynpcjcTb6Onc5BU4bCIxRHeF5TOhFteA",
+                    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"]
+
+  if(images.length===0)
+  {
+    images=defaultImages;
   }
 
   //for each image assign src to index
@@ -151,7 +152,7 @@ function updateEventsCard(destinationCity, events) {
     var timeId = "#card-" + i + "-time";
     var addressId = "#card-" + i + "-address";
     var descId = "#card-" + i + "-des";
-
+    var linkId ="#card-" + i+ "-link";
     var title = events[i].title;
 
     var address;
@@ -177,13 +178,22 @@ function updateEventsCard(destinationCity, events) {
     } else {
       time = events[i].time;
     }
-
+    var venueURL;
+    if (events[i].venueURL == null){
+      
+      venueURL = "No venue available";
+    } else{
+      venueURL = events[i].venueURL;
+    }
+    console.log(events[i])
     //Update HTML elements
 
-    $(titleId).text(title);
-    $(timeId).text(time);
-    $(addressId).text(address);
-    $(descId).text(desc);
+    $(titleId).html(title);
+    $(timeId).html(time);
+    $(addressId).html(address);
+    $(descId).html(desc);
+    $(linkId).attr("href",venueURL).attr("target","_blank")
+  
   }
 }
 
