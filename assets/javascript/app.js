@@ -30,8 +30,6 @@ var destinationCity;
 var originCity;
 var tripDate;
 var daysText = [];
-
-//TODO: New Global var, add to the rest;
 var popularCities;
 
 //Functions
@@ -49,6 +47,9 @@ function getDays() {
 
   //console.log(daysText);
 }
+
+//Hide the wrapper
+$('#wrapper').hide();
 
 //Get icon string from forecast data and returns associated icon class
 function iconClass(icondata) {
@@ -84,6 +85,16 @@ function iconClass(icondata) {
 //Update slideshow with images
 function updateSlideShow(images) {
   //console.log(images);
+  var defaultImages=["https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
+                    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+                    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000",
+                    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000",
+                    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"]
+
+  if(images.length===0)
+  {
+    images=defaultImages;
+  }
 
   //for each image assign src to index
   for (var i = 0; i < images.length; i++) {
@@ -98,12 +109,10 @@ function updateDirectionsCard(destinationCity, originCity, directions) {
   $("#directions-card").removeClass("d-none");
 
   //Change Heading
-  $("#directions-city").html("Directions from " + originCity);
+  $("#directions-city").html("Directions from " + originCity.toUpperCase());
 
   //Get Table
   var directionsTable = $("#directions-table");
-  //Empty Table
-  directionsTable.empty();
 
   //Append direction to Directions card table
   directions.forEach(element => {
@@ -126,6 +135,18 @@ function updateEventsCard(destinationCity, events) {
 
   //Assign events to events card
   for (var i = 0; i < events.length; i++) {
+
+    var currentEventHTML='<div class="card mb-2">' +
+                        '<h5 class="card-header"id="card-' + i + '-title">Event Title</h5>' +
+                        '<div class="card-body">' +
+                        '<h5 id="card-' + i + '-des">Desciption</h5>' +
+                        '<p id="card-' + i + '-time">Date and Time</p>' +
+                        '<p id="card-' + i + '-address">Address</p>' +
+                        '<a id="card-' + i + '-link" class="btn btn-outline-dark btn-sm">View Venue</a>' +
+                        '</div>' +
+                        '</div>'
+    $('#event-col-1').append(currentEventHTML);
+
     var titleId = "#card-" + i + "-title";
     var timeId = "#card-" + i + "-time";
     var addressId = "#card-" + i + "-address";
@@ -186,7 +207,6 @@ function createWeatherCard(destination, forecastResults) {
   var newBody = $("");
 
   //Create row for each day in forcast results
-  $("#dailyTempDisplay").empty();
   for (var i = 1; i < forecastResults.length - 1; i++) {
     var date = daysText[i];
     var tempHigh = Math.floor(forecastResults[i].temperatureHigh);
@@ -256,6 +276,20 @@ function findMostPopularCity() {
 
 $("#btn-submit").on("click", function() {
   event.preventDefault();
+  //Empty Directions
+  $("#directions-table").empty();
+  $("#dailyTempDisplay").empty();
+  $('#event-col-1').empty();
+
+  $('#day0-weatherOverview').text("No data available");
+  $('#day0-tmp').text("No data available");
+
+  $("#destination-city").text("TREK TO " + "DESTINATION UNKNOWN");
+
+  $("#directions-city").text("Directions from " + "ORIGIN UNKNOWN");
+
+  $("#directions-card").hide();
+  
   //TODO: add better input validation
 
   var destinationCity = "";
@@ -284,6 +318,7 @@ $("#btn-submit").on("click", function() {
   //TODO: add direitons ajax
   //Note: may need to be called only after acquiring latitude and longitude
   if (destinationCity.length > 0 && originCity.length > 0) {
+    $("#directions-card").show();
     var directionsURL =
       "https://cors-anywhere.herokuapp.com/http://www.mapquestapi.com/directions/v2/route?key=Gx9QGTMeo5RatQTBAvX2JHdG9Au9KUkD&from=" +
       originCity +
@@ -306,6 +341,7 @@ $("#btn-submit").on("click", function() {
   }
 
   if (destinationCity.length > 0) {
+    $('#wrapper').show();
     var timeString = "This Week";
     var eventsApiKey = "NvkjfRqn6GrLB7PF";
     var eventsQueryURL =
@@ -368,6 +404,10 @@ $("#btn-submit").on("click", function() {
       }
       //console.log(events);
       updateEventsCard(destinationCity, events);
+      $("html,body").animate(
+        { scrollTop: $("#scroll-target").offset().top },
+        "slow"
+      );
     });
 
     $.ajax({
@@ -398,10 +438,6 @@ $("#btn-submit").on("click", function() {
         createWeatherCard(destinationCity, forecastDays);
 
         //Slide page down to results AFTER ALL CARDS ARE UPDATED
-        $("html,body").animate(
-          { scrollTop: $("#scroll-target").offset().top },
-          "slow"
-        );
 
         //Store data to firebase
         addSearchToDatabase(destinationCity);
