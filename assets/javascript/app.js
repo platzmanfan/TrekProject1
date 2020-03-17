@@ -49,7 +49,7 @@ function getDays() {
 }
 
 //Hide the wrapper
-$('#wrapper').hide();
+$("#wrapper").hide();
 
 //Get icon string from forecast data and returns associated icon class
 function iconClass(icondata) {
@@ -86,15 +86,16 @@ function iconClass(icondata) {
 function updateSlideShow(images) {
   //console.log(images);
 
-  var defaultImages=["https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
-                    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-                    "https://handluggageonly.co.uk/wp-content/uploads/2015/11/906073_10153728868514784_5225031761405831432_o.jpg",
-                    "https://lh3.googleusercontent.com/proxy/EGGq6s43BUt2rtQZIep35ESOuX3ZFJ5Iw49MJiseAPDsE5PQwxPl3agWtK_dYfWw1awXUM5xPEh6rsfEtCBc9OynpcjcTb6Onc5BU4bCIxRHeF5TOhFteA",
-                    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"]
+  var defaultImages = [
+    "https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
+    "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+    "https://handluggageonly.co.uk/wp-content/uploads/2015/11/906073_10153728868514784_5225031761405831432_o.jpg",
+    "https://lh3.googleusercontent.com/proxy/EGGq6s43BUt2rtQZIep35ESOuX3ZFJ5Iw49MJiseAPDsE5PQwxPl3agWtK_dYfWw1awXUM5xPEh6rsfEtCBc9OynpcjcTb6Onc5BU4bCIxRHeF5TOhFteA",
+    "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"
+  ];
 
-  if(images.length===0)
-  {
-    images=defaultImages;
+  if (images.length === 0) {
+    images = defaultImages;
   }
 
   //for each image assign src to index
@@ -136,23 +137,33 @@ function updateEventsCard(destinationCity, events) {
 
   //Assign events to events card
   for (var i = 0; i < events.length; i++) {
-
-    var currentEventHTML = '<div class="card mb-2">' +
-      '<h5 class="card-header"id="card-' + i + '-title">Event Title</h5>' +
+    var currentEventHTML =
+      '<div class="card mb-2">' +
+      '<h5 class="card-header"id="card-' +
+      i +
+      '-title">Event Title</h5>' +
       '<div class="card-body">' +
-      '<h5 id="card-' + i + '-des">Desciption</h5>' +
-      '<p id="card-' + i + '-time">Date and Time</p>' +
-      '<p id="card-' + i + '-address">Address</p>' +
-      '<a id="card-' + i + '-link" class="btn btn-outline-dark btn-sm">View Venue</a>' +
-      '</div>' +
-      '</div>'
-    $('#event-col-1').append(currentEventHTML);
+      '<h5 id="card-' +
+      i +
+      '-des">Desciption</h5>' +
+      '<p id="card-' +
+      i +
+      '-time">Date and Time</p>' +
+      '<p id="card-' +
+      i +
+      '-address">Address</p>' +
+      '<a id="card-' +
+      i +
+      '-link" class="btn btn-outline-dark btn-sm">View Venue</a>' +
+      "</div>" +
+      "</div>";
+    $("#event-col-1").append(currentEventHTML);
 
     var titleId = "#card-" + i + "-title";
     var timeId = "#card-" + i + "-time";
     var addressId = "#card-" + i + "-address";
     var descId = "#card-" + i + "-des";
-    var linkId ="#card-" + i+ "-link";
+    var linkId = "#card-" + i + "-link";
     var title = events[i].title;
 
     var address;
@@ -179,21 +190,21 @@ function updateEventsCard(destinationCity, events) {
       time = events[i].time;
     }
     var venueURL;
-    if (events[i].venueURL == null){
-      
+    if (events[i].venueURL == null) {
       venueURL = "No venue available";
-    } else{
+    } else {
       venueURL = events[i].venueURL;
     }
-    console.log(events[i])
+    console.log(events[i]);
     //Update HTML elements
 
     $(titleId).html(title);
     $(timeId).html(time);
     $(addressId).html(address);
     $(descId).html(desc);
-    $(linkId).attr("href",venueURL).attr("target","_blank")
-  
+    $(linkId)
+      .attr("href", venueURL)
+      .attr("target", "_blank");
   }
 }
 
@@ -208,8 +219,8 @@ function createWeatherCard(destination, forecastResults) {
   $("#day0-weatherOverview").text(forecastResults[0].summary);
   $("#day0-tmp").text(
     Math.floor(forecastResults[0].temperatureHigh) +
-    " / " +
-    Math.floor(forecastResults[0].temperatureLow)
+      " / " +
+      Math.floor(forecastResults[0].temperatureLow)
   );
 
   //Create Table
@@ -287,15 +298,15 @@ function findMostPopularCity() {
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
 
-$("#btn-submit").on("click", function () {
+$("#btn-submit").on("click", function() {
   event.preventDefault();
   //Empty Directions
   $("#directions-table").empty();
   $("#dailyTempDisplay").empty();
-  $('#event-col-1').empty();
+  $("#event-col-1").empty();
 
-  $('#day0-weatherOverview').text("No data available");
-  $('#day0-tmp').text("No data available");
+  $("#day0-weatherOverview").text("No data available");
+  $("#day0-tmp").text("No data available");
 
   $("#destination-city").text("TREK TO " + "DESTINATION UNKNOWN");
 
@@ -341,7 +352,7 @@ $("#btn-submit").on("click", function () {
     $.ajax({
       url: directionsURL,
       method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
       //console.log(response);
       var steps = response.route.legs[0].maneuvers;
       var directions = [];
@@ -354,7 +365,15 @@ $("#btn-submit").on("click", function () {
   }
 
   if (destinationCity.length > 0) {
-    $('#wrapper').show();
+    //Start Loading Bar
+    $("#btn-submit")
+      .html(
+        '<span id="loader" class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...'
+      )
+      .addClass("disabled");
+    //Start Loading Bar
+
+    $("#wrapper").show();
     var timeString = "This Week";
     var eventsApiKey = "NvkjfRqn6GrLB7PF";
     var eventsQueryURL =
@@ -386,7 +405,7 @@ $("#btn-submit").on("click", function () {
     $.ajax({
       url: pixabayQueryURL,
       method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
       //console.log(response);
       var pictureList = response.hits;
       var pictureLinks = [];
@@ -399,7 +418,7 @@ $("#btn-submit").on("click", function () {
     $.ajax({
       url: eventsQueryURL,
       method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
       var objResponse = JSON.parse(response);
       //console.log(objResponse);
       var events = [];
@@ -417,8 +436,22 @@ $("#btn-submit").on("click", function () {
         events.push(event);
       }
       //console.log(events);
+
+      //End Loading Bar
+      //TODO: Remove disable class
+
+      $("#btn-submit")
+        .empty()
+        .removeClass("disabled")
+        .html("TREK IT");
+
+      //TODO: Remove Span
+      //TODO: Put default button content back
+      //End Loading Bar
+
       updateEventsCard(destinationCity, events);
-      $("html,body").animate({
+      $("html,body").animate(
+        {
           scrollTop: $("#scroll-target").offset().top
         },
         "slow"
@@ -428,7 +461,7 @@ $("#btn-submit").on("click", function () {
     $.ajax({
       url: weatherQueryURL,
       method: "GET"
-    }).then(function (response) {
+    }).then(function(response) {
       var results = response;
 
       var longitude = results.coord.lon;
@@ -445,7 +478,7 @@ $("#btn-submit").on("click", function () {
       $.ajax({
         url: forecastQueryURL,
         method: "GET"
-      }).then(function (response) {
+      }).then(function(response) {
         var results = response;
         var forecastDays = results.daily.data;
 
@@ -464,14 +497,14 @@ $("#btn-submit").on("click", function () {
 //Updates local info from database in real time
 database.ref().on(
   "value",
-  function (snapshot) {
+  function(snapshot) {
     //console.log(snapshot.val());
 
     popularCities = snapshot.val().popularCities;
     //console.log(popularCities);
     console.log("most popular city is: " + findMostPopularCity());
   },
-  function (errorObject) {
+  function(errorObject) {
     console.log("The read failed: " + errorObject.code);
   }
 );
