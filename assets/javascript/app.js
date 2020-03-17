@@ -501,8 +501,12 @@ database.ref().on(
     //console.log(snapshot.val());
 
     popularCities = snapshot.val().popularCities;
+
+    $("#trending-display").html(
+      "TOP SEARCHED CITY: " + findMostPopularCity().toUpperCase()
+    );
     //console.log(popularCities);
-    console.log("most popular city is: " + findMostPopularCity());
+    //console.log("most popular city is: " + findMostPopularCity());
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
