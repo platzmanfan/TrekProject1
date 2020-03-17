@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Travel Companion App</title>
+    <title>Trek</title>
 
     <!--             JS and Frameworks          -->
 
@@ -48,7 +48,9 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     />
-    <!-- Google Fonts -->
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link
@@ -73,8 +75,9 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand text-white" target="_blank">
-        <strong>Travel App Companion</strong>
+      
+      <a class="navbar-brand text-white " target="_blank">
+        <i class="fas fa-compass"></i><strong class="display-type"> TREK</strong>
       </a>
 
       <!-- Collapse -->
@@ -88,11 +91,9 @@
 
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item ">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
+          <!-- <li class="nav-item ">
+            
+          </li> -->
           
         </ul>
 
@@ -109,9 +110,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link border border-light rounded"
+            <a href="" class="nav-link border border-light rounded display-type"
               target="_blank">
-              Log In
+              LOG IN
             </a>
           </li>
         </ul>
@@ -132,19 +133,27 @@
       <!-- Content -->
       <div class="row text-center white-text mx-5 ">
         <div class="col">
-          <h1 class="mb-4">
-            <strong>Your Destination Awaits</strong>
-          </h1>
-          <div class="input-group mb-3">
-            <input id="destination-input" type="text" class="form-control" placeholder="Where would you like to go?" aria-label=""
-              aria-describedby="button-addon2">
-            <div class="input-group-append">
-              <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 " type="button" > Travel</button>
+          <div class="row">
+            <div class="col">
+              <h1 class="mb-4 display-type" >
+                YOUR DESTINATION AWAITS
+              </h1>
+              
             </div>
           </div>
-          
+          <div class="row">
+            <div class="col">
+              <div class="input-group mb-3">
+                <input id="destination-input" type="text" class="form-control" placeholder="City to visit?" aria-label=""
+                  aria-describedby="button-addon2">
+                  <input id="origin-input" type="text" class="form-control" placeholder="Origin City (optional)">
+                <div class="input-group-append">
+                  <button id="btn-submit" class="btn btn-md btn-outline-white m-0 px-3 py-2 z-depth-0 display-type" type="button" > Trek It </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
       </div>
       <!-- Content -->
 
@@ -160,12 +169,27 @@
     <div class="container main-content " id="wrapper">
       <!-- Landing Section with Weather, City Image Gallery, Directions and Events-->
 
+
+      <!-- Target for scroll animation -->
+      <div class="row p-3" id="scroll-target">
+        <div class="col"></div>
+      </div>
+
+      <!-- Display destination city -->
+      <div class="row my-3 py-2">
+        <div class="col text-center">
+          <h1 class="display-type" id="destination-city">
+            TREK TO SAN FRANCISCO
+          </h1>
+        </div>
+      </div>
+
       <!-- Weather & City Images-->
         <div class="row my-3 py-2">
           <div class="col-md">
             <div class="card" style="width: 25rem;">
               <div class="card-body">
-                <h5 class="card-title" id="destination-city">San Francisco</h5>
+                <h5 class="card-title" >Current Weather</h5>
                 <p class="card-text" id="todays-date">Today's Date</p>
                 <p class="card-text" id="day0-weatherOverview">Weather Overview</p>
                 <h2 id="day0-tmp">50</h2>
@@ -233,7 +257,7 @@
 
       <!-- TODO: HIDE DIRECTIONS IF NO INPUT -->
       <!-- Directions-->
-        <div class="row">
+        <div class="row d-none" id="directions-card" >
           <div class="col">
             <div class="card" >
               <div class="card-body">
@@ -262,7 +286,7 @@
       <!-- Events Header-->
         <div class="row my-3">
           <div class="col">
-            <h4 class="text-center">EVENTS IN DESTINATION</h4>
+            <h4 class="text-center display-type">EVENTS</h4>
           </div>
         </div>
       <!-- Events Header -->
@@ -279,7 +303,7 @@
                 <h5 id="card-0-des">Desciption</h5>
                 <p id="card-0-time">Date and Time</p>
                 <p id="card-0-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-0-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -291,7 +315,7 @@
                 <h5 id="card-1-des">Desciption</h5>
                 <p id="card-1-time">Date and Time</p>
                 <p id="card-1-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-1-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -303,7 +327,7 @@
                 <h5 id="card-2-des">Desciption</h5>
                 <p id="card-2-time">Date and Time</p>
                 <p id="card-2-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-2-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -315,7 +339,7 @@
                 <h5 id="card-3-des">Desciption</h5>
                 <p id="card-3-time">Date and Time</p>
                 <p id="card-3-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-3-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -327,7 +351,7 @@
                 <h5 id="card-4-des">Desciption</h5>
                 <p id="card-4-time">Date and Time</p>
                 <p id="card-4-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-4-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -339,7 +363,7 @@
                 <h5 id="card-5-des">Desciption</h5>
                 <p id="card-5-time">Date and Time</p>
                 <p id="card-5-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-5-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -351,7 +375,7 @@
                 <h5 id="card-6-des">Desciption</h5>
                 <p id="card-6-time">Date and Time</p>
                 <p id="card-6-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-6-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -363,7 +387,7 @@
                 <h5 id="card-7-des">Desciption</h5>
                 <p id="card-7-time">Date and Time</p>
                 <p id="card-7-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-7-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -375,7 +399,7 @@
                 <h5 id="card-8-des">Desciption</h5>
                 <p id="card-8-time">Date and Time</p>
                 <p id="card-8-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-8-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
@@ -387,7 +411,7 @@
                 <h5 id="card-9-des">Desciption</h5>
                 <p id="card-9-time">Date and Time</p>
                 <p id="card-9-address">Address</p>
-                <a href="" class="btn btn-outline-dark btn-sm">View Venue</a>
+                <a id="card-9-link" class="btn btn-outline-dark btn-sm">View Venue</a>
               </div>
             </div>
             <!-- Event Card-end -->
