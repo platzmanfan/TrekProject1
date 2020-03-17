@@ -85,6 +85,7 @@ function iconClass(icondata) {
 //Update slideshow with images
 function updateSlideShow(images) {
   //console.log(images);
+
   var defaultImages=["https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
                     "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
                     "https://handluggageonly.co.uk/wp-content/uploads/2015/11/906073_10153728868514784_5225031761405831432_o.jpg",
@@ -136,15 +137,15 @@ function updateEventsCard(destinationCity, events) {
   //Assign events to events card
   for (var i = 0; i < events.length; i++) {
 
-    var currentEventHTML='<div class="card mb-2">' +
-                        '<h5 class="card-header"id="card-' + i + '-title">Event Title</h5>' +
-                        '<div class="card-body">' +
-                        '<h5 id="card-' + i + '-des">Desciption</h5>' +
-                        '<p id="card-' + i + '-time">Date and Time</p>' +
-                        '<p id="card-' + i + '-address">Address</p>' +
-                        '<a id="card-' + i + '-link" class="btn btn-outline-dark btn-sm">View Venue</a>' +
-                        '</div>' +
-                        '</div>'
+    var currentEventHTML = '<div class="card mb-2">' +
+      '<h5 class="card-header"id="card-' + i + '-title">Event Title</h5>' +
+      '<div class="card-body">' +
+      '<h5 id="card-' + i + '-des">Desciption</h5>' +
+      '<p id="card-' + i + '-time">Date and Time</p>' +
+      '<p id="card-' + i + '-address">Address</p>' +
+      '<a id="card-' + i + '-link" class="btn btn-outline-dark btn-sm">View Venue</a>' +
+      '</div>' +
+      '</div>'
     $('#event-col-1').append(currentEventHTML);
 
     var titleId = "#card-" + i + "-title";
@@ -207,8 +208,8 @@ function createWeatherCard(destination, forecastResults) {
   $("#day0-weatherOverview").text(forecastResults[0].summary);
   $("#day0-tmp").text(
     Math.floor(forecastResults[0].temperatureHigh) +
-      " / " +
-      Math.floor(forecastResults[0].temperatureLow)
+    " / " +
+    Math.floor(forecastResults[0].temperatureLow)
   );
 
   //Create Table
@@ -256,7 +257,10 @@ function addSearchToDatabase(mySearch) {
     }
   }
   if (!found) {
-    popularCities.push({ name: mySearch, count: 1 });
+    popularCities.push({
+      name: mySearch,
+      count: 1
+    });
   }
 
   var updates = {};
@@ -283,7 +287,7 @@ function findMostPopularCity() {
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
 
-$("#btn-submit").on("click", function() {
+$("#btn-submit").on("click", function () {
   event.preventDefault();
   //Empty Directions
   $("#directions-table").empty();
@@ -298,7 +302,7 @@ $("#btn-submit").on("click", function() {
   $("#directions-city").text("Directions from " + "ORIGIN UNKNOWN");
 
   $("#directions-card").hide();
-  
+
   //TODO: add better input validation
 
   var destinationCity = "";
@@ -337,7 +341,7 @@ $("#btn-submit").on("click", function() {
     $.ajax({
       url: directionsURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       //console.log(response);
       var steps = response.route.legs[0].maneuvers;
       var directions = [];
@@ -382,7 +386,7 @@ $("#btn-submit").on("click", function() {
     $.ajax({
       url: pixabayQueryURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       //console.log(response);
       var pictureList = response.hits;
       var pictureLinks = [];
@@ -395,7 +399,7 @@ $("#btn-submit").on("click", function() {
     $.ajax({
       url: eventsQueryURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       var objResponse = JSON.parse(response);
       //console.log(objResponse);
       var events = [];
@@ -409,14 +413,14 @@ $("#btn-submit").on("click", function() {
           time: current.start_time,
           image: current.image,
           venueURL: current.venue_url
-
         };
         events.push(event);
       }
       //console.log(events);
       updateEventsCard(destinationCity, events);
-      $("html,body").animate(
-        { scrollTop: $("#scroll-target").offset().top },
+      $("html,body").animate({
+          scrollTop: $("#scroll-target").offset().top
+        },
         "slow"
       );
     });
@@ -424,7 +428,7 @@ $("#btn-submit").on("click", function() {
     $.ajax({
       url: weatherQueryURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       var results = response;
 
       var longitude = results.coord.lon;
@@ -441,7 +445,7 @@ $("#btn-submit").on("click", function() {
       $.ajax({
         url: forecastQueryURL,
         method: "GET"
-      }).then(function(response) {
+      }).then(function (response) {
         var results = response;
         var forecastDays = results.daily.data;
 
@@ -460,14 +464,14 @@ $("#btn-submit").on("click", function() {
 //Updates local info from database in real time
 database.ref().on(
   "value",
-  function(snapshot) {
+  function (snapshot) {
     //console.log(snapshot.val());
 
     popularCities = snapshot.val().popularCities;
     //console.log(popularCities);
     console.log("most popular city is: " + findMostPopularCity());
   },
-  function(errorObject) {
+  function (errorObject) {
     console.log("The read failed: " + errorObject.code);
   }
 );
