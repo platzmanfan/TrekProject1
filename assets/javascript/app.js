@@ -89,8 +89,8 @@ function updateSlideShow(images) {
   var defaultImages = [
     "https://media.gettyimages.com/photos/st-stephen-cathedral-in-vienna-austria-picture-id827407010?s=612x612",
     "https://images.unsplash.com/photo-1519923041107-e4dc8d9193da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-    "https://handluggageonly.co.uk/wp-content/uploads/2015/11/906073_10153728868514784_5225031761405831432_o.jpg",
-    "https://lh3.googleusercontent.com/proxy/EGGq6s43BUt2rtQZIep35ESOuX3ZFJ5Iw49MJiseAPDsE5PQwxPl3agWtK_dYfWw1awXUM5xPEh6rsfEtCBc9OynpcjcTb6Onc5BU4bCIxRHeF5TOhFteA",
+    "https://www.olgafinearts.com/wp-content/gallery/canada-cityscape/CND-OL-810_3624.jpg",
+    "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     "https://cdn2.wanderlust.co.uk/media/1115/articles-a-pretty-picture-is-not-enough-it-needs-to-be-original-photo-mike-baird1.jpg?anchor=center&mode=crop&width=1200&height=0&rnd=131455539260000000"
   ];
 
@@ -294,6 +294,21 @@ function findMostPopularCity() {
   return mostPopular;
 }
 
+function displayResults()
+{
+  $("#btn-submit")
+  .empty()
+  .removeClass("disabled")
+  .html("TREK IT");
+
+$("html,body").animate(
+  {
+    scrollTop: $("#scroll-target").offset().top
+  },
+  "slow"
+);
+}
+
 //Submit button on click event handler
 //TODO: Add time input for future search. Need to solve time conversion issues between string and ms.
 //Maybe use moment.js library?
@@ -435,27 +450,12 @@ $("#btn-submit").on("click", function() {
         };
         events.push(event);
       }
-      //console.log(events);
-
-      //End Loading Bar
-      //TODO: Remove disable class
-
-      $("#btn-submit")
-        .empty()
-        .removeClass("disabled")
-        .html("TREK IT");
-
-      //TODO: Remove Span
-      //TODO: Put default button content back
-      //End Loading Bar
 
       updateEventsCard(destinationCity, events);
-      $("html,body").animate(
-        {
-          scrollTop: $("#scroll-target").offset().top
-        },
-        "slow"
-      );
+
+      displayResults();
+    }).fail(function(){
+      displayResults();
     });
 
     $.ajax({
@@ -485,7 +485,6 @@ $("#btn-submit").on("click", function() {
         //Update Weather Card
         createWeatherCard(destinationCity, forecastDays);
 
-        //Slide page down to results AFTER ALL CARDS ARE UPDATED
 
         //Store data to firebase
         addSearchToDatabase(destinationCity);
@@ -498,15 +497,12 @@ $("#btn-submit").on("click", function() {
 database.ref().on(
   "value",
   function(snapshot) {
-    //console.log(snapshot.val());
 
     popularCities = snapshot.val().popularCities;
 
     $("#trending-display").html(
       "TOP SEARCHED CITY: " + findMostPopularCity().toUpperCase()
     );
-    //console.log(popularCities);
-    //console.log("most popular city is: " + findMostPopularCity());
   },
   function(errorObject) {
     console.log("The read failed: " + errorObject.code);
